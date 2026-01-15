@@ -10,29 +10,12 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         ZStack {
-            LinearGradient(gradient: Gradient(colors: [.blue, .lightblue]),
-                           startPoint: .topLeading,
-                           endPoint: .bottomTrailing)
-                .edgesIgnoringSafeArea(.all)
+            BackgroundView(topColor: .blue, bottomColor: Color("lightblue"))
             VStack {
-                Text("Laoag City, PH")
-                    .font(.system(size: 32, weight: .medium, design: .default))
-                    .foregroundColor(.white)
-                    .padding()
+                CityTextView(cityName: "Laoag City, Philippines")
                 
-            VStack(spacing: 10) {
-                Image(systemName: "cloud.sun.fill")
-                    .renderingMode(.original)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 180, height: 180)
-                    
-                Text("41°")
-                    .font(.system(size: 70, weight: .medium))
-                    .foregroundColor(.white)
-                }
-                
-            .padding(.bottom, 40)
+                StatusView(imageName: "cloud.sun.fill",
+                           temperature: 43)
              
                 HStack(spacing: 20) {
                     WeatherDayView(
@@ -65,6 +48,7 @@ struct ContentView: View {
                         .frame(width: 280, height: 50)
                         .background(Color.white)
                         .font(.system(size:20, weight: .bold, design: .default))
+                        .cornerRadius(10)
                 }
                     Spacer()
                 }
@@ -98,9 +82,53 @@ struct WeatherDayView: View {
     }
 }
 
+struct BackgroundView: View {
+    var topColor: Color
+    var bottomColor: Color
+    
+    var body: some View {
+        LinearGradient(gradient: Gradient(colors: [.blue, .lightblue]),
+                       startPoint: .topLeading,
+                       endPoint: .bottomTrailing)
+            .edgesIgnoringSafeArea(.all)
+    }
+    
+    
+}
 
+struct CityTextView: View{
+    
+    var cityName: String
+    
+    var body: some View {
+        Text(cityName)
+            .font(.system(size: 32, weight: .medium, design: .default))
+            .foregroundColor(.white)
+            .padding()
+    }
+}
 
-
+struct StatusView: View {
+    
+    var imageName: String
+    var temperature: Int
+    
+    var body: some View {
+        VStack(spacing: 10) {
+            Image(systemName: imageName)
+                .renderingMode(.original)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 180, height: 180)
+                
+            Text("\(temperature)°")
+                .font(.system(size: 70, weight: .medium))
+                .foregroundColor(.white)
+            }
+            
+        .padding(.bottom, 40)
+    }
+}
 
 /*
 import SwiftData
@@ -166,4 +194,5 @@ struct ContentView: View {
 #Preview {
     ContentView()
 }
+
 
