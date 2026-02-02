@@ -23,3 +23,9 @@ struct WeatherButton: View {
         
     }
 }
+
+struct WeatherButton_Previews: PreviewProvider {
+    static var previews: some View {
+        WeatherButton(title: "Testing", textColor: .white, backgroundColor: .blue)
+    }
+}
